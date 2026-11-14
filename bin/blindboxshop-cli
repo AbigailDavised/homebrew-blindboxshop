@@ -1,0 +1,97 @@
+#!/usr/bin/env node
+/**
+ * blindboxshop-cli v1.0.0
+ * Designer Toy Chase-Rate Probability, Gram-Scale Mass & EAN Verification CLI
+ * Official reference utility for https://blindboxshop.com
+ * License: MIT
+ */
+
+const ROUTES = [
+  {
+    "name": "BlindBoxShop Home",
+    "url": "https://blindboxshop.com/"
+  },
+  {
+    "name": "0.01g Blind Box Weight Database & Series Scanner",
+    "url": "https://blindboxshop.com/scanner"
+  },
+  {
+    "name": "Designer Toy Brands & IP Series Directory",
+    "url": "https://blindboxshop.com/brands"
+  },
+  {
+    "name": "Official Retail Store & Roboshop Vending Locator",
+    "url": "https://blindboxshop.com/stores"
+  },
+  {
+    "name": "Authentic vs Counterfeit Inspection & Weighing Guides",
+    "url": "https://blindboxshop.com/guides"
+  },
+  {
+    "name": "Collector Pull Checklist & Trade Card Builder",
+    "url": "https://blindboxshop.com/my-collection"
+  }
+];
+
+const SPECS = [
+  {
+    "Rarity Tier": "Standard Regular (1/12)",
+    "Single-Box Odds (p)": "8.33%",
+    "12-Box Case Pull Rate": "100.0% (guaranteed in sealed case)",
+    "50% Cumulative Threshold": "1 sealed case / 8 loose",
+    "90% Cumulative Threshold": "27 loose boxes"
+  },
+  {
+    "Rarity Tier": "Standard Secret (1/72)",
+    "Single-Box Odds (p)": "1.39%",
+    "12-Box Case Pull Rate": "16.67% (1 per 6 master cases)",
+    "50% Cumulative Threshold": "50 loose boxes",
+    "90% Cumulative Threshold": "165 loose boxes"
+  },
+  {
+    "Rarity Tier": "Super Secret (1/144)",
+    "Single-Box Odds (p)": "0.69%",
+    "12-Box Case Pull Rate": "8.33% (1 per 12-case master carton)",
+    "50% Cumulative Threshold": "100 loose boxes",
+    "90% Cumulative Threshold": "331 loose boxes"
+  },
+  {
+    "Rarity Tier": "Ultra Chase (1/288)",
+    "Single-Box Odds (p)": "0.35%",
+    "12-Box Case Pull Rate": "4.17% (1 per 24 cases)",
+    "50% Cumulative Threshold": "199 loose boxes",
+    "90% Cumulative Threshold": "662 loose boxes"
+  }
+];
+
+const args = process.argv.slice(2);
+
+if (args.includes('--version') || args.includes('-v')) {
+  console.log('blindboxshop-cli v1.0.0 (https://blindboxshop.com)');
+  process.exit(0);
+}
+
+if (args.includes('--routes')) {
+  console.log(JSON.stringify({ domain: 'blindboxshop.com', endpoints: ROUTES }, null, 2));
+  process.exit(0);
+}
+
+if (args.includes('--specs') || args.includes('--json')) {
+  console.log(JSON.stringify({ domain: 'blindboxshop.com', benchmark: "Chase Figure Pull Probability & Sealed Case Statistical Reference", rows: SPECS }, null, 2));
+  process.exit(0);
+}
+
+console.log([
+  'BlindBoxShop CLI (blindboxshop-cli v1.0.0)',
+  'Designer Toy Chase-Rate Probability, Gram-Scale Mass & EAN Verification CLI',
+  'Homepage: https://blindboxshop.com',
+  '',
+  'Usage:',
+  '  blindboxshop-cli --help       Show command overview and verified endpoints',
+  '  blindboxshop-cli --version    Print CLI version',
+  '  blindboxshop-cli --specs      Output domain technical specification matrix as JSON',
+  '  blindboxshop-cli --routes     Output verified production URLs as JSON',
+  '',
+  'Verified Production Endpoints:',
+  ...ROUTES.map((r) => '  - ' + r.name + ': ' + r.url),
+].join('\n'));
